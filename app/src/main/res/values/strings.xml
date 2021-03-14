@@ -1,3 +1,8 @@
 <resources>
+    <!-- Common -->
     <string name="app_name">WGTranslator</string>
+
+    <!-- Item -->
+    <string name="item_english">English</string>
+    <string name="item_korean">Korean</string>
 </resources>

@@ -13,4 +13,15 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Theme.WGTranslator.Splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.WGTranslator.Main" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+    
+    <style name="Theme.WGTranslator.Animation.Window" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowEnterAnimation">@anim/anim_popup_window</item>
+        <item name="android:windowExitAnimation">@anim/anim_fade_out</item>
+    </style>
 </resources>
