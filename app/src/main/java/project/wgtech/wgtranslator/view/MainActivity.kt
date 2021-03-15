@@ -44,7 +44,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.spinnerLanguageInputMain.adapter = mainViewModel.languageSpinnerAdapter
+        binding.spinnerLanguageInputMain.apply {
+            prompt = getString(R.string.item_original)
+            adapter = mainViewModel.languageSpinnerAdapter
+        }
+        binding.spinnerLanguageInputMain.setSelection(1)
+        binding.spinnerLanguageOutputMain.apply {
+            prompt = getString(R.string.item_translate)
+            adapter = mainViewModel.languageSpinnerAdapter
+        }
+        binding.spinnerLanguageOutputMain.setSelection(2)
 
     }
 }

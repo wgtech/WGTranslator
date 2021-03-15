@@ -1,8 +1,10 @@
 <resources>
     <!-- Common -->
-    <string name="app_name">WGTranslator</string>
+    <string name="app_name">Woody\'s Translator</string>
 
     <!-- Item -->
+    <string name="item_original">Original</string>
+    <string name="item_translate">Translate</string>
     <string name="item_english">English</string>
     <string name="item_korean">Korean</string>
 </resources>

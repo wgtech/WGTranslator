@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">WGTranslator</string>
+    <string name="app_name">우디의 번역친구</string>
     <string name="item_english">영어</string>
     <string name="item_korean">한국어</string>
 </resources>
