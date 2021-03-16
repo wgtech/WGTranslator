@@ -22,7 +22,7 @@ class LanguageSpinnerAdapter constructor(
         val view: View = convertView ?: layoutInflater.inflate(R.layout.item_spinner, parent, false)
 
         getItem(position)?.let { country ->
-            bindView(view, country)
+            bindTitleView(view, country)
         }
 
         return view
@@ -38,11 +38,12 @@ class LanguageSpinnerAdapter constructor(
                 root.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_BACK))
                 root.dispatchKeyEvent(KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_BACK))
             }
+            bindTitleView(view)
 
         } else {
             view = layoutInflater.inflate(R.layout.item_spinner, parent, false)
             getItem(position)?.let { country ->
-                bindView(view, country)
+                bindTitleView(view, country)
             }
         }
 
@@ -57,7 +58,12 @@ class LanguageSpinnerAdapter constructor(
 
     override fun isEnabled(position: Int) = position != 0
 
-    private fun bindView(view: View, language: Language) {
+    private fun bindTitleView(view: View) {
+        val textViewLanguage = view.findViewById<AppCompatTextView>(R.id.textViewSpinnerItem)
+        textViewLanguage.text = "Select language"
+    }
+
+    private fun bindTitleView(view: View, language: Language) {
         val textViewLanguage = view.findViewById<AppCompatTextView>(R.id.textViewSpinnerItem)
         val imageViewLanguage = view.findViewById<AppCompatImageView>(R.id.imageViewSpinnerItem)
 
