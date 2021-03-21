@@ -20,6 +20,7 @@ class Util @Inject constructor(@ApplicationContext var context: Context) {
     val isSupportKitkat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
     val isSupportLollipop = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
     val isSupportMarshmallow = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
+    val isSupportAndroid11 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
     fun logd(any: Any) {
         Log.d("wgtech", any.toString())

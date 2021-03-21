@@ -1,12 +1,15 @@
 package project.wgtech.wgtranslator.view
 
-import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import project.wgtech.wgtranslator.viewmodel.MainViewModel
 import project.wgtech.wgtranslator.R
@@ -30,28 +33,54 @@ class MainActivity : AppCompatActivity() {
             window.apply {
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                setFlags(
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                    WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
                 if (util.isSupportLollipop) {
-                    statusBarColor = Color.TRANSPARENT
+                    statusBarColor = context.getColor(R.color.lavender_dream)
                 }
-                if (util.isSupportMarshmallow) {
-                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                } else {
-                    decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                when {
+                    util.isSupportAndroid11 -> {
+                        window.insetsController?.setSystemBarsAppearance(WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                            WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS)
+                    }
+                    util.isSupportMarshmallow -> {
+                        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                    }
+                    else -> {
+                        decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    }
                 }
             }
         }
 
+
+
         binding.spinnerLanguageInputMain.apply {
             adapter = mainViewModel.languageSpinnerAdapter
+            setSelection(1, true)
         }
-        binding.spinnerLanguageInputMain.setSelection(1)
         binding.spinnerLanguageOutputMain.apply {
             adapter = mainViewModel.languageSpinnerAdapter
+            setSelection(2, true)
         }
         binding.spinnerLanguageOutputMain.setSelection(2)
 
+        binding.editTextInputMain.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+
+            override fun afterTextChanged(s: Editable?) {
+                val inputSelected = binding.spinnerLanguageInputMain.selectedItemPosition
+                val outputSelected = binding.spinnerLanguageOutputMain.selectedItemPosition
+                mainViewModel.refreshTranslateData(inputSelected, outputSelected, s.toString())
+            }
+
+        })
+
+        mainViewModel.refreshTranslateData(binding.spinnerLanguageInputMain.selectedItemPosition,
+                                        binding.spinnerLanguageOutputMain.selectedItemPosition,
+                                        binding.editTextInputMain.text.toString())
+        mainViewModel.translated.observe(this, Observer {
+            binding.textViewOutputMain.text = it
+        })
     }
 }

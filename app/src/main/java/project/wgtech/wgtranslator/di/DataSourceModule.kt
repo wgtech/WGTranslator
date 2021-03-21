@@ -24,8 +24,8 @@ object DataSourceModule {
     @Singleton
     fun provideSpinnerData(@ApplicationContext context: Context) : ArrayList<Language> {
         return ArrayList<Language>().apply {
-            add(Language("EN", context.getString(R.string.item_english), getDrawable(context, "united_states.png")))
-            add(Language("KO", context.getString(R.string.item_korean), getDrawable(context, "republic_of_korea.png")))
+            add(Language("en", context.getString(R.string.item_english), getDrawable(context, "united_states.png")))
+            add(Language("ko", context.getString(R.string.item_korean), getDrawable(context, "republic_of_korea.png")))
         }
     }
 }

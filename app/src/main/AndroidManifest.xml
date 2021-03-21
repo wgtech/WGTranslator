@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.wgtech.wgtranslator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="project.wgtech.wgtranslator.GlobalApplication"
         android:allowBackup="false"
