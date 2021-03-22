@@ -31,9 +31,11 @@ class MainViewModel @Inject constructor(
     var languageSpinnerAdapter = LanguageSpinnerAdapter(context, languageModels)
 
     fun refreshTranslateData(sourceLanguageNumber: Int, targetLanguageNumber: Int, targetText: String) {
-        _translated.value = repository.getTranslateData(
-            languageModels[sourceLanguageNumber - 1],
-            languageModels[targetLanguageNumber - 1], targetText
-        )
+        viewModelScope.launch {
+            _translated.value = repository.getTranslateData(
+                languageModels[sourceLanguageNumber - 1],
+                languageModels[targetLanguageNumber - 1], targetText
+            )
+        }
     }
 }
