@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             window.apply {
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                if (util.isSupportLollipop) {
+                if (util.isSupportMarshmallow) {
                     statusBarColor = context.getColor(R.color.lavender_dream)
                 }
                 when {
@@ -75,10 +75,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-
-        mainViewModel.refreshTranslateData(binding.spinnerLanguageInputMain.selectedItemPosition,
-                                        binding.spinnerLanguageOutputMain.selectedItemPosition,
-                                        binding.editTextInputMain.text.toString())
         mainViewModel.translated.observe(this, Observer {
             binding.textViewOutputMain.text = it
         })
