@@ -1,17 +1,13 @@
 package project.wgtech.wgtranslator.view
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
+import androidx.fragment.app.commit
 import dagger.hilt.android.AndroidEntryPoint
-import project.wgtech.wgtranslator.viewmodel.MainViewModel
 import project.wgtech.wgtranslator.R
 import project.wgtech.wgtranslator.Util
 import project.wgtech.wgtranslator.databinding.ActivityMainBinding
@@ -20,14 +16,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
-    private val mainViewModel: MainViewModel by viewModels()
 
     @Inject lateinit var util: Util
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        binding.viewModel = mainViewModel
 
         if (util.isSupportKitkat) {
             window.apply {
@@ -51,32 +45,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) // TODO
 
 
-        binding.spinnerLanguageInputMain.apply {
-            adapter = mainViewModel.languageSpinnerAdapter
-            setSelection(1, true)
+        supportFragmentManager.commit {
+            replace(R.id.containerMain, MainFragment.instance)
         }
-        binding.spinnerLanguageOutputMain.apply {
-            adapter = mainViewModel.languageSpinnerAdapter
-            setSelection(2, true)
-        }
-        binding.spinnerLanguageOutputMain.setSelection(2)
-
-        binding.editTextInputMain.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-
-            override fun afterTextChanged(s: Editable?) {
-                val inputSelected = binding.spinnerLanguageInputMain.selectedItemPosition
-                val outputSelected = binding.spinnerLanguageOutputMain.selectedItemPosition
-                mainViewModel.refreshTranslateData(inputSelected, outputSelected, s.toString())
-            }
-
-        })
-        mainViewModel.translated.observe(this, Observer {
-            binding.textViewOutputMain.text = it
-        })
     }
 }

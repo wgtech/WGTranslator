@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Toolbar -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarMain"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/lavender_dream"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Other zone -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintTop_toBottomOf="@id/toolbarMain"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <!-- Input -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintInputMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constrainedHeight="true"
+                android:background="@drawable/outline_spinner"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/constraintOutputMain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintInputInnerMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerLanguageInputMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:popupBackground="@drawable/outline_spinner_background"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/item_spinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/editTextInputMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintTop_toBottomOf="@id/constraintInputInnerMain"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Output -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintOutputMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constrainedHeight="true"
+                android:background="@drawable/outline_spinner"
+                app:layout_constraintTop_toBottomOf="@id/constraintInputMain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_chainStyle="spread"
+                app:layout_constraintVertical_weight="1">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintOutputInnerMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinnerLanguageOutputMain"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:popupBackground="@drawable/outline_spinner_background"
+                        android:spinnerMode="dropdown"
+                        tools:listitem="@layout/item_spinner"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/imageButtonMain"
+                        android:layout_height="match_parent"
+                        android:layout_width="0dp"
+                        app:layout_constrainedWidth="true"
+                        android:padding="5dp"
+                        android:src="@drawable/round_g_translate"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/textViewOutputMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    app:autoSizeMinTextSize="15sp"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintTop_toBottomOf="@id/constraintOutputInnerMain"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
