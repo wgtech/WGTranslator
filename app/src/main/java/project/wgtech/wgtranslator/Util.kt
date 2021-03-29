@@ -34,6 +34,10 @@ class Util @Inject constructor(@ApplicationContext var context: Context) {
         Log.w("wgtech", any.toString())
     }
 
+    fun loge(any: Any) {
+        Log.e("wgtech", any.toString())
+    }
+
     fun toastShort(any: Any) {
         Toast.makeText(context, any.toString(), Toast.LENGTH_SHORT).show()
     }
