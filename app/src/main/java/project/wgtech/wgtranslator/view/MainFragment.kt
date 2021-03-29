@@ -13,11 +13,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collectLatest
 import project.wgtech.wgtranslator.R
 import project.wgtech.wgtranslator.Util
 import project.wgtech.wgtranslator.databinding.FragmentMainBinding
 import project.wgtech.wgtranslator.viewmodel.MainViewModel
+import java.lang.Runnable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -61,25 +65,24 @@ class MainFragment : Fragment() {
         }
 
         binding.editTextInputMain.addTextChangedListener(object : TextWatcher {
-            private val handler: Handler = Handler(Looper.getMainLooper())
-            private var runnable: Runnable = Runnable { }
+            private var launchedScope: Job? = null
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                handler.removeCallbacks(runnable)
+                if (launchedScope != null) {
+                    (launchedScope as CoroutineScope).cancel()
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
-                handler.removeCallbacks(runnable)
-                runnable = Runnable {
+                launchedScope = lifecycleScope.launch {
+                    delay(500)
                     val inputSelected = binding.spinnerLanguageInputMain.selectedItemPosition
                     val outputSelected = binding.spinnerLanguageOutputMain.selectedItemPosition
                     mainViewModel.refreshTranslateData(inputSelected, outputSelected, s.toString())
                 }
-                handler.postDelayed(runnable, 500)
             }
-
         })
         mainViewModel.translated.observe(viewLifecycleOwner, Observer {
             binding.textViewOutputMain.text = it
