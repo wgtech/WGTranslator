@@ -7,4 +7,14 @@
     <string name="item_translate">Translate</string>
     <string name="item_english">English</string>
     <string name="item_korean">Korean</string>
+
+    <!-- Title -->
+    <string name="title_error">Error</string>
+
+    <!-- Message -->
+    <string name="message_now_initialize">Now initializing…</string>
+    <string name="message_initialize_complete">Initialize complete!</string>
+    <string name="message_now_download">Now downloading…</string>
+    <string name="message_download_complete">Download complete!</string>
+    <string name="message_download_fail">Download failed</string>
 </resources>

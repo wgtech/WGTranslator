@@ -7,11 +7,8 @@
             name="activity"
             type="project.wgtech.wgtranslator.view.MainActivity" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.fragment.app.FragmentContainerView
         android:id="@+id/containerMain"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="project.wgtech.wgtranslator.view.MainActivity">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent" />
 </layout>
