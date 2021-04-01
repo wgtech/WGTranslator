@@ -31,7 +31,7 @@ object AppModule {
 
     @Provides
     fun provideDownloadConditions() : DownloadConditions =
-        DownloadConditions.Builder().requireWifi().build()
+        DownloadConditions.Builder().build()
 
     @Provides
     internal fun provideRetrofitClient() : Retrofit =
