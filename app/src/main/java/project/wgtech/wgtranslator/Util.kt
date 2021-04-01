@@ -27,7 +27,7 @@ class Util @Inject constructor(@ApplicationContext var context: Context) {
     val isSupportAndroid11 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 
     fun logd(any: Any) {
-        Log.d("wgtech", any.toString())
+        if (isDebug) Log.d("wgtech", any.toString())
     }
 
     fun logw(any: Any) {
@@ -45,6 +45,8 @@ class Util @Inject constructor(@ApplicationContext var context: Context) {
     fun toastLong(any: Any) {
         Toast.makeText(context, any.toString(), Toast.LENGTH_LONG).show()
     }
+
+    fun getString(resourceId: Int) = context.getString(resourceId)
 
     fun executeTask(runnable: Runnable) = TaskRunner().execute<Any>(runnable)
 
