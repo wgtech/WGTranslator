@@ -1,8 +1,6 @@
 package project.wgtech.wgtranslator.view
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -11,8 +9,8 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import project.wgtech.wgtranslator.R
 import project.wgtech.wgtranslator.Util
 import project.wgtech.wgtranslator.databinding.ActivitySplashBinding
@@ -21,6 +19,7 @@ import project.wgtech.wgtranslator.viewmodel.SplashViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySplashBinding
     private val splashViewModel: SplashViewModel by viewModels()
@@ -35,9 +34,6 @@ class SplashActivity : AppCompatActivity() {
             window.apply {
                 clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
                 addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                if (util.isSupportMarshmallow) {
-                    statusBarColor = context.getColor(R.color.lavender_dream)
-                }
                 when {
                     util.isSupportAndroid11 -> {
                         window.insetsController?.setSystemBarsAppearance(
@@ -54,33 +50,29 @@ class SplashActivity : AppCompatActivity() {
             }
         }
 
-        splashViewModel.status.observe(this, {
-            when (it.code) {
+        splashViewModel.status.observe(this, { status ->
+            when (status.code) {
                 StatusCode.INITIALIZE -> {
                     binding.tvSplash.apply {
                         visibility = View.VISIBLE
-                        text = "Now initializing..." // TODO
+                        text = util.getString(R.string.message_now_initialize)
                     }
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
-                    finish()
                 }
-                StatusCode.DOWNLOAD_MODEL -> {
+                StatusCode.DOWNLOAD_MODEL, StatusCode.DOWNLOAD_COMPLETE_MODEL,
+                StatusCode.INITIALIZE_COMPLETE_MODEL -> {
                     binding.tvSplash.apply {
-                        text = it.message
+                        text = status.message
                     }
-                }
-                StatusCode.DOWNLOAD_COMPLETE_MODEL, StatusCode.ALREADY_STORED_MODEL -> {
-//                    binding.tvSplash.apply {
-//                        text = it.message
-//                    }
-                    startActivity(Intent(applicationContext, MainActivity::class.java))
-                    finish()
+                    if (status.code == StatusCode.INITIALIZE_COMPLETE_MODEL) {
+                        startActivity(Intent(applicationContext, MainActivity::class.java))
+                        finish()
+                    }
                 }
                 StatusCode.DOWNLOAD_FAILURE_MODEL -> {
-                    AlertDialog.Builder(this, R.style.Theme_AppCompat_Dialog_Alert)
-                        .setIcon(it.drawable)
-                        .setTitle("Error") // TODO
-                        .setMessage(it.message)
+                    AlertDialog.Builder(this, R.style.Theme_WGTranslator_AlertDialog)
+                        .setIcon(status.drawable)
+                        .setTitle(util.getString(R.string.title_error))
+                        .setMessage(status.message)
                         .create().show()
                 }
                 else -> { /* NOTHING HAPPENED? */ }

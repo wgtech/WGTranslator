@@ -45,11 +45,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE) // TODO
-
-
         supportFragmentManager.commit {
-            replace(R.id.containerMain, MainFragment.instance)
+            replace(R.id.containerMain, MainFragment()) // https://dagger.dev/hilt/android-entry-point.html#retained-fragments
         }
     }
 }

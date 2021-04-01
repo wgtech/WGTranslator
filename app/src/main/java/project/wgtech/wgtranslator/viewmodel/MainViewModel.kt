@@ -27,8 +27,6 @@ class MainViewModel @Inject constructor(
     private val _translated : MutableLiveData<String> = MutableLiveData()
     val translated : LiveData<String> = _translated
 
-    private val flow = flow { emit(translated.value) }
-
     private val languageModels = repository.getLanguageModels()
     var languageSpinnerAdapter = LanguageSpinnerAdapter(context, languageModels)
 

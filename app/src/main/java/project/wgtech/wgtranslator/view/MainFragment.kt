@@ -1,8 +1,6 @@
 package project.wgtech.wgtranslator.view
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -16,12 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collectLatest
 import project.wgtech.wgtranslator.R
 import project.wgtech.wgtranslator.Util
 import project.wgtech.wgtranslator.databinding.FragmentMainBinding
 import project.wgtech.wgtranslator.viewmodel.MainViewModel
-import java.lang.Runnable
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -31,10 +27,6 @@ class MainFragment : Fragment() {
 
     @Inject lateinit var util: Util
     @Inject lateinit var inputMethodManager: InputMethodManager
-
-    companion object {
-        val instance = MainFragment()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,9 +43,7 @@ class MainFragment : Fragment() {
 
         if (view.requestFocus()) {
             inputMethodManager.showSoftInput(view, (InputMethodManager.HIDE_IMPLICIT_ONLY))
-            // TODO stateHidden|adjustResize // https://stackoverflow.com/questions/20355053/adjustresize-with-animation/34779195#34779195
         }
-
 
         binding.spinnerLanguageInputMain.apply {
             adapter = mainViewModel.languageSpinnerAdapter
@@ -77,13 +67,19 @@ class MainFragment : Fragment() {
 
             override fun afterTextChanged(s: Editable?) {
                 launchedScope = lifecycleScope.launch {
-                    delay(500)
-                    val inputSelected = binding.spinnerLanguageInputMain.selectedItemPosition
-                    val outputSelected = binding.spinnerLanguageOutputMain.selectedItemPosition
-                    mainViewModel.refreshTranslateData(inputSelected, outputSelected, s.toString())
+                    if (s.isNullOrBlank()) {
+                        binding.textViewOutputMain.text = ""
+
+                    } else {
+                        delay(500)
+                        val inputSelected = binding.spinnerLanguageInputMain.selectedItemPosition
+                        val outputSelected = binding.spinnerLanguageOutputMain.selectedItemPosition
+                        mainViewModel.refreshTranslateData(inputSelected, outputSelected, s.toString())
+                    }
                 }
             }
         })
+
         mainViewModel.translated.observe(viewLifecycleOwner, Observer {
             binding.textViewOutputMain.text = it
         })
