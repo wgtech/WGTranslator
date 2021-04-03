@@ -2,20 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="project.wgtech.wgtranslator">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
-        android:allowBackup="true"
+        android:name="project.wgtech.wgtranslator.GlobalApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WGTranslator">
 
-        <activity android:name="project.wgtech.wgtranslator.SplashActivity">
+        <activity android:name="project.wgtech.wgtranslator.view.SplashActivity"
+            android:theme="@style/Theme.WGTranslator.Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name="project.wgtech.wgtranslator.view.MainActivity"
+            android:theme="@style/Theme.WGTranslator.Main"
+            android:screenOrientation="portrait"/>
 
     </application>
 

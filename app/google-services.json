@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "947552733154",
+    "project_id": "wgtranslator-9214",
+    "storage_bucket": "wgtranslator-9214.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:947552733154:android:d91695e9f5a6a398f05bbb",
+        "android_client_info": {
+          "package_name": "project.wgtech.wgtranslator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "947552733154-88rkcjng72cgqft8dan97qv6hjhqttf6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANxpWjVyD59U6VVJUNmqs0YZBujtmxBeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "947552733154-88rkcjng72cgqft8dan97qv6hjhqttf6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
